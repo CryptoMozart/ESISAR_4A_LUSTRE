@@ -1,0 +1,21 @@
+node  rising_edge(start: bool)
+	returns(res: bool);
+let
+	res = false -> if ( start and not pre(start) ) then true else false;
+
+tel
+
+node minmax(in : int) returns(min,max :int);
+let
+	min = in -> if pre(min) > in then in else pre(min); 
+	max = in -> if pre(max) > in then in else pre(max); 
+tel
+
+node fibonacci(step :int) returns(res: int)
+var pre, prepre: int;
+let
+	prepre = 42 -> 666 -> pre(pre(res));
+	pre = 666 -> pre(res);
+--valeur d'initialistion au pif
+	res = 0 -> 1 -> pre + prepre;
+tel
