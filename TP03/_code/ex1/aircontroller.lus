@@ -1,0 +1,10 @@
+node AC (onOff: bool; tAmb, tUser: int) returns (isOn: bool; tOut: int)
+let
+	--On met isOn à 1 si on allume la clim
+	isOn = 0 -> if onOff then 1 else 0;
+
+	--Si il y a un ecart (supérieur) de plus de 1°C entre la temperature ambiante et la consigne on définit la valeur de sortie de la clim au niveau de la consigne. 
+ 	
+	tOut =tAmb -> if ( tAmb - tUser ) > 1 then tUser else tAmb;
+
+tel

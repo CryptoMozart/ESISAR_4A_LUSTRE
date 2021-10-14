@@ -1,0 +1,19 @@
+node stopwatch (start,stop,freeze,reset : bool) returns (timeFreeze,timeCnt: int)
+-- start: starts or restats the time counta
+var run :bool;
+let
+--on crée une variable temporaire pour démarrer le compteur en fonction de start (car start gère aussi le reset)
+	run = switch(start,start);
+
+	timeFreeze = 0 -> if freeze then timeCnt else pre(timeFreeze);
+	--on fait l'hypothèse que lorsque freeze s'active uniquement par front montant donc sa valeur doit repasser à 0 entre 2 cycles d'horloge
+
+	timeCnt = 0 -> if run and not stop then pre(timeCnt)+1 else (if stop and not reset then pre(timeCnt) else (if (stop and reset) then 0 else 0 ) )  ;
+
+tel
+
+node switch(on,off: bool) returns (res: bool)
+let
+	res = if(false -> pre(res)) then not off else on;
+tel
+
